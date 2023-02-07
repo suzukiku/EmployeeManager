@@ -1,0 +1,12 @@
+input::ng-deep {
+    color: white;
+  }
+  .btn-success{
+    margin-left: 10px;
+    background-color: #925aad;
+    border-color: #925aad;
+    box-shadow: #722b96;
+}
+.btn.btn-success:focus{
+  box-shadow: 0 0 0 0.25rem #6c3788;
+}

@@ -1,0 +1,31 @@
+<div>
+    <div class="dialog-header-wrapper">
+        <h4 class="dialog-headline">Create new Employee</h4>
+        <mat-icon class="close-icon" (click)="onCloseDialog()">close</mat-icon>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="tab-content">
+            <div class="content-container tab-content-height">
+                <mat-form-field>
+                    <input matInput formControlName="firstname" placeholder=" First name" required="" maxlength="30">
+                    <mat-error>Required field</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <input matInput formControlName="lastname" placeholder=" Last name" required="" maxlength="30">
+                    <mat-error>Required field</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <input matInput  formControlName="email" placeholder="Email" required="" maxlength="40">
+                    <mat-error *ngIf="form.controls.email.hasError('required')">Required field</mat-error>
+                    <mat-error *ngIf="form.controls.email.hasError('duplicateEmailValidator')">Already Exists</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-dialog-actions class="pull-right">
+                    <button type="button" class="btn btn-success" (click)="submit()">Save</button>
+                </mat-dialog-actions>
+            </div>
+        </div>
+    </form>
+</div>

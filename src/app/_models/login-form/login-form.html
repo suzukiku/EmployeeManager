@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<form [formGroup]="loginform">
+    <div class="form-wrapper">
+        <mat-form-field>
+            <mat-label>Username:</mat-label>
+            <input matInput formControlName="username" maxlength="30" autocomplete="off">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Password:</mat-label>
+            <input matInput formControlName="password" maxlength="30" type="password" autocomplete="off">
+        </mat-form-field>
+        <button type="submit" class="btn btn-success">Log in</button>
+    </div>
+</form>

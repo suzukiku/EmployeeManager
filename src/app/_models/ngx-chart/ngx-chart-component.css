@@ -1,0 +1,9 @@
+::ng-deep .legend-title {
+    color:rgb(211, 199, 199);
+}
+::ng-deep .ngx-charts text { fill: #fff; }
+
+::ng-deep .chart-legend .legend-label:hover {
+    color: red;
+}
+

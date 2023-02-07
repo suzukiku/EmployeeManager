@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<div class='card'>
+  <div class='card-header'>
+    Ikon Soft Employee Manager
+  </div>
+  <!-- <div class='card-body'> -->
+    <!-- <div class='table-responsive'>
+      <div>
+        <button class="btn btn-success"  (click)="openAddFileDialog()">Create new Employee</button>
+        <mat-form-field>
+          <mat-label>Filter by name</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Jane Doe" #input>
+        </mat-form-field>
+      </div>
+      <table mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" > -->
+
+        <!-- First Name -->
+        <!-- <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="firstName" sortActionDescription="Sort by First Name"> First Name </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.firstName}} </mat-cell>  
+        </ng-container> -->
+        
+        <!-- Last Name -->
+        <!-- <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="lastName" sortActionDescription="Sort by Last Name"> Last Name </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.lastName}} </mat-cell>
+        </ng-container> -->
+
+        <!-- Email -->
+        <!-- <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="email" sortActionDescription="Sort by Email"> Email</mat-header-cell>
+          <mat-cell *matCellDef="let user">{{user.email}}</mat-cell>
+        </ng-container> -->
+        
+        <!-- Actions -->
+        <!-- <ng-container matColumnDef="button">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let user">  -->
+              <!-- <button class="btn btn-warning" (click)="edit(user)">Edit</button>
+              <button class="btn btn-danger" (click)="delete(user)">Delete</button>
+              <button class="btn btn-info" (click)="openActionsFileDialog(user)">Actions</button> -->
+          <!-- </mat-cell> -->
+      <!-- </ng-container> -->
+
+      <!-- <mat-header-row *matHeaderRowDef='columnsToDisplay'></mat-header-row> -->
+        <!-- <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row> -->
+
+        <!-- <tr class="mat-row" *matNoDataRow> -->
+    <!-- <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td> -->
+        <!-- </tr> -->
+
+      <!-- </table> -->
+      <!-- <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons > -->
+      <!-- </mat-paginator> -->
+    <!-- </div> -->
+
+  </div>
+<!-- </div> -->
+<li><a routerLink="/admin-page" routerLinkActive="active" ariaCurrentWhenActive="page">admin-page</a></li>
+<li><a routerLink="/user-page" routerLinkActive="active" ariaCurrentWhenActive="page">user-page</a></li>
+<li><a routerLink="/auth-page" routerLinkActive="active" ariaCurrentWhenActive="page">auth-page</a></li>
+<router-outlet></router-outlet>

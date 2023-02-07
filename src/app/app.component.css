@@ -1,0 +1,124 @@
+:root {
+    --brown: #b9936c;
+    --grey: #c4b7a6;
+}
+.card{
+    background-color: var(--grey);
+}
+.card-header {
+    color: white;
+}
+.btn{
+    line-height: 1.2;
+    font-size: 0.9rem;
+    margin-right: 0.6rem;
+}
+.btn-warning{
+    margin-left:0.2rem;
+}
+.btn-success{
+    margin-left:0.4rem;
+}
+.table-responsive{
+    border-radius: 25px;
+    margin-left:5rem;
+    margin-right:5rem;
+}
+.row{
+    margin-left:5rem;
+}
+
+::ng-deep .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+    background: #bfbfbf;
+}
+
+.right-align {
+    display: flex;
+    align-items: flex-end;
+}
+
+table {
+    width: 100%;
+  }
+  
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+  }
+  
+  .example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+  }
+  
+  .example-element-description {
+    padding: 16px;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }
+
+  input::ng-deep {
+    color: white;
+  }
+
+  table.mat-table {
+    background: #24112e;
+  }
+  .mat-paginator {
+    background: #24112e;
+  }
+  .btn-danger {
+    background-color: #720035;
+    border-color: black;
+  }
+  .btn-success {
+    background-color: #54216e;
+    border-color: #54216e;
+  }
+  .btn-warning {
+    background-color: #925aad;
+    border-color: #925aad;
+  }
+  .btn-info {
+    background-color: #8757f7;
+    border-color: #8757f7;
+  }
+  .btn.btn-info:focus{
+    box-shadow: 0 0 0 0.25rem #9670ee;
+  }
+  .btn.btn-warning:focus{
+    box-shadow: 0 0 0 0.25rem #663e7a;
+  }
+  .btn.btn-success:focus{
+    box-shadow: 0 0 0 0.25rem #6c3788;
+  }
+  
+  

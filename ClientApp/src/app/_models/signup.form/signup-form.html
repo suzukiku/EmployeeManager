@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<form [formGroup]="signupform">
+    <div class="form-wrapper">
+        <mat-form-field>
+            <mat-label>Username:</mat-label>
+            <input matInput formControlName="username" maxlength="30" autocomplete="off">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Email:</mat-label>
+            <input matInput formControlName="email" maxlength="40" type="email" autocomplete="off">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Password:</mat-label>
+            <input matInput formControlName="password" maxlength="30" type="password" autocomplete="off">
+        </mat-form-field>
+        <button type="submit" class="btn btn-success">Sign up</button>
+    </div>
+</form>

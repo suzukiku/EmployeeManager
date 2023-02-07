@@ -1,0 +1,80 @@
+<div class="details-wrapper">
+
+  <div class="form-wrapper">
+    <form [formGroup]="form">
+      <div class="tab-content">
+        <div class="content-container tab-content-height">
+          <mat-form-field>
+            <mat-label>Name:</mat-label>
+            <input matInput formControlName="name" [readonly]="true">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Email:</mat-label>
+            <input matInput formControlName="email" [readonly]="true">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Time Worked:</mat-label>
+            <input matInput formControlName="workHours" [readonly]="true">
+            <cd-timer #worktimer [autoStart]="false" [startTime]="workcalctime"></cd-timer>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Break Time:</mat-label>
+            <input matInput formControlName="breakTime" [readonly]="true">
+            <cd-timer #breaktimer [autoStart]="false" [startTime]="breakcalctime"></cd-timer>
+          </mat-form-field>
+          <br>
+        </div>
+      </div>
+    </form>
+
+    <div class="actions-wrapper">
+      <mat-dialog-actions class="pull-right">
+        <button type="button" class="btn btn-success" (click)="checkin()" [disabled]="firstcheckin">Check In</button>
+      </mat-dialog-actions>
+      <mat-dialog-actions class="pull-right">
+        <button type="button" class="btn btn-danger" (click)="checkout()" [disabled]="!firstcheckin">Check Out</button>
+      </mat-dialog-actions>
+      <mat-dialog-actions class="pull-right">
+        <button type="button" class="btn btn-warning" (click)="breaktime()" [disabled]="!firstcheckin">Break Time</button>
+      </mat-dialog-actions>
+    </div>
+  </div>
+  <div class="chart-wrapper">
+    <div style="margin-left: 210px; color: white;">
+      Last month's worked hours
+    </div>
+    <charts-component></charts-component>
+  </div>
+  <div class="report-wrapper">
+    <mat-dialog-actions class="pull-right">
+      <button type="button" class="btn btn-warning" (click)="monthlyReport()">Report</button>
+    </mat-dialog-actions>
+  </div>
+</div>
+<div>
+  <mat-table #table [dataSource]="dataSource" class="fixed-height">
+
+    <ng-container matColumnDef="TimeStamp">
+      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-cell *matCellDef="let time"> {{time.timeStamp | date: 'mediumDate'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="WorkHours">
+      <mat-header-cell *matHeaderCellDef> Hours Worked </mat-header-cell>
+      <mat-cell *matCellDef="let time"> {{time.workHours}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="BreakTime">
+      <mat-header-cell *matHeaderCellDef> Break Time </mat-header-cell>
+      <mat-cell *matCellDef="let time"> {{time.breakTime}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef='columnsToDisplay'></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+  </mat-table>
+
+</div>

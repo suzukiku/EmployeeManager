@@ -1,0 +1,28 @@
+.auth-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    max-width: 25%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    background: #24112e;
+    padding: 25px;
+    border-radius: 10px;
+    justify-content: center;
+    margin-top: 15vh;
+  }
+  .login-wrapper{
+    color: white;
+  }
+  .signup-wrapper{
+    color: white;
+  }
+.signuplink {
+    cursor: pointer;
+    color: white;
+  }
+  .loginlink{
+    cursor: pointer;
+    color: white;
+  }
+  

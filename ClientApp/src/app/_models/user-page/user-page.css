@@ -1,0 +1,88 @@
+.mat-table {
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.dialog-header-wrapper {
+    display: flex;
+    justify-content: space-between
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.close-icon {
+    cursor: pointer;
+}
+
+.rares {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.fixed-height {
+    height: 20vh;
+    overflow: auto;
+}
+::ng-deep .mat-dialog-container{
+    background: #24112e;
+  }
+.mat-header-cell{
+    background: #24112eaf;
+}
+.mat-row {
+  background: #24112eaf;
+}
+  .btn-success {
+    background-color: #54216e;
+    border-color: #54216e;
+    box-shadow: #722b96;
+  }
+  .btn.btn-success:focus{
+    box-shadow: 0 0 0 0.25rem #6c3788;
+  }
+  .btn-danger{
+    background-color: #720035;
+    border-color: black;
+  }
+  .btn-warning {
+    background-color: #925aad;
+    border-color: #925aad;
+  }
+  .btn.btn-warning:focus{
+    box-shadow: 0 0 0 0.25rem #663e7a;
+  }
+  .details-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 75vw;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    background: #24112e;
+    padding: 25px;
+    padding-bottom: 0;
+    border-radius: 15px 15px 0 0;
+  }
+
+.chart-wrapper {
+  flex: 1 1 50%;
+}
+.form-wrapper {
+  flex: 1 1 50%;
+  
+}
+
+.actions-wrapper {
+  margin:auto 0;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+cd-timer ::ng-deep {
+  color:white;
+}
+.report-wrapper {
+  display: flex;
+}
