@@ -48,3 +48,32 @@ export class WorkHours{
     public employeeID: string;
 
 }
+export class User {
+
+    constructor() {
+        this.Id = '';
+        this.UserName = '';
+        this.Email = '';
+        this.Password = '';
+        this.IsAdmin = false;
+        this.IsUser = false;
+    }
+
+    public Id: string;
+    public UserName: string;
+    public Email: string;
+    public Password: string;
+    public IsAdmin: boolean;
+    public IsUser: boolean;
+}
+export class Token {
+
+    constructor() {
+        this.TokenType = '';
+        this.AccessToken = '';
+    }
+
+    public TokenType: string;
+    public AccessToken: string;
+
+}

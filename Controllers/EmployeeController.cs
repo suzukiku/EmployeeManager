@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.OpenApi.Any;
 using Project3.Model;
 using Project3.Model.DTO;
 using Project3.Model.Response;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Project3.Controllers
 {
@@ -44,7 +40,8 @@ namespace Project3.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+    [Authorize]
+    public IActionResult Get()
         {
             try
             {

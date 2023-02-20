@@ -1,12 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Project3.Model;
 using System.IO;
 
 namespace coreAPI.Repository
 {
-    public class SqlDatabaseContext : DbContext
-    {
+    public class SqlDatabaseContext : IdentityDbContext<User>
+  {
         public SqlDatabaseContext(DbContextOptions<SqlDatabaseContext> options)
             : base(options)
         {
@@ -35,6 +36,7 @@ namespace coreAPI.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>().ToTable("User");
         }
     }
 }

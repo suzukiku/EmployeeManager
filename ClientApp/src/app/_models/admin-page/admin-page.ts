@@ -60,7 +60,7 @@ export class AdminPage {
 
   loadEmployee() {
     this.service.getEmployee().subscribe(response => {
-      this.dataSource = new MatTableDataSource(response);
+      this.dataSource = new MatTableDataSource(<Array<Employee>>response.body);
       console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
     });
@@ -72,7 +72,7 @@ export class AdminPage {
     dialogConfig.width = "30vw";
     const fileNameDialogRef = this.dialog.open(FileNameDialogComponent,dialogConfig).afterClosed().subscribe(formData => {
       this.service.getEmployee().subscribe(response => {
-        this.dataSource = new MatTableDataSource(response);
+        this.dataSource = new MatTableDataSource(<Array<Employee>>response.body);
         this.dataSource.paginator = this.paginator;
       });
     });
@@ -85,7 +85,7 @@ export class AdminPage {
     dialogConfig.data = employee;
     const fileNameDialogRef = this.dialog.open(FileNameDialogComponent,dialogConfig).afterClosed().subscribe(formData => {
       this.service.getEmployee().subscribe(response => {
-        this.dataSource = new MatTableDataSource(response);
+        this.dataSource = new MatTableDataSource(<Array<Employee>>response.body);
         this.dataSource.paginator = this.paginator;
       });
     });   
@@ -98,7 +98,7 @@ export class AdminPage {
     dialogConfig.data = employee;
     const fileNameDialogRef = this.dialog.open(FileNameDialogComponentActions,dialogConfig).afterClosed().subscribe(formData => {
       this.service.getEmployee().subscribe(response => {
-        this.dataSource = new MatTableDataSource(response);
+        this.dataSource = new MatTableDataSource(<Array<Employee>>response.body);
         this.dataSource.paginator = this.paginator;
       });
     });

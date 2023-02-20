@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using coreAPI.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Logging;
@@ -19,12 +19,14 @@ namespace coreAPI.Service
         private BreakTimeService _breakTimeService;
         private EmployeeService _employeeService;
         private TimeManagerService _timeManagerService;
+        private UserService _userService;
 
         public WorkHoursService WorkHoursService => _workHoursService ??= new WorkHoursService(_logger, this, DatabaseContext);
         public BreakTimeService BreakTimeService => _breakTimeService  ??= new BreakTimeService(_logger, this, DatabaseContext);
         public EmployeeService EmployeeService => _employeeService ??= new EmployeeService(_logger, this, DatabaseContext);
 
         public TimeManagerService TimeManagerService => _timeManagerService ??= new TimeManagerService(_logger, this, DatabaseContext);
+        public UserService UserService => _userService ??= new UserService(_logger, this, DatabaseContext);
 
         private readonly ILogger _logger;
         private SqlDatabaseContext DatabaseContext { get; }

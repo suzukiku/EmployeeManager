@@ -1,4 +1,4 @@
-﻿
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,5 +21,8 @@ namespace Project3.Model
         public virtual ICollection<WorkHours> WorkHours{ get; set; }
 
         public virtual ICollection<TimeManager> TimeManager { get; set; }
+
+        [ForeignKey("Id")]
+        public virtual User User { get; set; }
     }
 }
