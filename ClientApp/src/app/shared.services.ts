@@ -184,20 +184,21 @@ export class SharedService {
     postWorkingHours(workinghours: WorkHours): Observable<object> {
         return this.http.post(this.APIUrl + "WorkHours", workinghours) as Observable<Object>;
     }
+
     login(loginModel: LoginModel) {
-        var obs = this.http.post(this.APIUrl+'/login', loginModel) as Observable<HttpResponse<LoginResponse>>;
+        var obs = this.http.post(this.APIUrl+'login', loginModel) as Observable<HttpResponse<LoginResponse>>;
         return obs;
-      }
+    }
     
     register(user: RegisterModel) {
-        var obs = this.http.post(this.APIUrl+'/register', user) as Observable<HttpResponse<Object>>;
+        var obs = this.http.post(this.APIUrl+'register', user) as Observable<HttpResponse<Object>>;
         return obs;
-      }
+    }
     
-      openSnackBar(message: string, action: string) {
+    openSnackBar(message: string, action: string) {
         this._snackBar.open(message, action, {
           duration: 2000,
           verticalPosition: 'top',});
-      }
+    }
         
 }

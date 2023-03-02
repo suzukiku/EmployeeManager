@@ -1,5 +1,7 @@
 import { Component, Inject, Input, OnInit, ViewChild, } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { LoginModel } from 'src/app/request-base';
+import { SharedService } from 'src/app/shared.services';
 
 
 @Component({
@@ -8,6 +10,10 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
     styleUrls: ['./login-form.css']
 })
 export class LoginForm {
+    constructor(
+        private formBuilder: FormBuilder,
+        private service: SharedService,
+    ){}
     loginform: FormGroup;
     username: string;
     password: string;
@@ -17,7 +23,7 @@ export class LoginForm {
             password: [this.password, Validators.required],
         });
     }
-    constructor(
-        private formBuilder: FormBuilder,
-    ){}
+    login() {
+        
+    }
 }
