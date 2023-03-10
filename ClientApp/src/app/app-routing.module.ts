@@ -7,9 +7,19 @@ import { AdminPage } from './_models/admin-page/admin-page';
 import { AuthPage } from './_models/auth-page/auth-page';
 
 const routes: Routes = [
-  {path: 'auth-page', component: AuthPage},
-  { path: 'user-page', component: UserPage},
-  { path: 'admin-page', component: AdminPage}
+  {
+    path: 'auth-page',
+    component: AuthPage,
+    canActivate: []
+  },
+  {
+    path: 'user-page',
+    component: UserPage
+  },
+  { 
+    path: 'admin-page',
+    component: AdminPage
+  }
   
 ];
 
