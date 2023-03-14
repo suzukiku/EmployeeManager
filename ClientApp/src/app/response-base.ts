@@ -2,12 +2,21 @@ import { Token, User } from "./_models/api-models";
 
 export class LoginResponse {
     constructor() {
-        this.User = new User();
-        this.Token = new Token();
+        this.user = new User();
+        this.token = new Token();
     }
 
-    public User: User;
-    public Token: Token;
+    public user: User;
+    public token: Token;
+}
+export class LoginResponseC {
+    constructor() {
+        this.User = "";
+        this.Token = "";
+    }
+
+    public User: string;
+    public Token: string;
 }
 export class RegisterModel {
 

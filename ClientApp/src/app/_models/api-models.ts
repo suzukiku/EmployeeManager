@@ -51,29 +51,29 @@ export class WorkHours{
 export class User {
 
     constructor() {
-        this.Id = '';
-        this.UserName = '';
-        this.Email = '';
-        this.Password = '';
-        this.IsAdmin = false;
-        this.IsUser = false;
+        this.id = '';
+        this.userName = '';
+        this.email = '';
+        this.password = '';
+        this.isAdmin = false;
+        this.isUser = false;
     }
 
-    public Id: string;
-    public UserName: string;
-    public Email: string;
-    public Password: string;
-    public IsAdmin: boolean;
-    public IsUser: boolean;
+    public id: string;
+    public userName: string;
+    public email: string;
+    public password: string;
+    public isAdmin: boolean;
+    public isUser: boolean;
 }
 export class Token {
 
     constructor() {
-        this.TokenType = '';
-        this.AccessToken = '';
+        this.tokenType = '';
+        this.accessToken = '';
     }
 
-    public TokenType: string;
-    public AccessToken: string;
+    public tokenType: string;
+    public accessToken: string;
 
 }

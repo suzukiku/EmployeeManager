@@ -54,7 +54,7 @@ namespace coreAPI.Controller
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> Login(LoginModel model)
         {
             try
             {
@@ -63,19 +63,21 @@ namespace coreAPI.Controller
                 if (tokenResponse is null)
                 {
                     _logger.LogInformation("Login failed");
-                    return Task.FromResult<IActionResult>(BadRequest("Invalid username or password"));
+                    return BadRequest("Invalid username or password");
                 }
                 _logger.LogInformation($"{model.Username} has successfully logged in");
-                return Task.FromResult<IActionResult>(Ok(new
-                {
-                    Token = tokenResponse,
-                    User = AuthService.GetUserByUsername(model.Username).Result
-                }));
+
+               var user = AuthService.GetUserByUsername(model.Username);
+               return Ok(new
+               {
+                 Token = tokenResponse,
+                 User = AuthService.GetUserByUsername(model.Username).Result
+               });
             }
             catch (Exception ex)
             {
-                _logger.LogTrace(ex, "Error on logging in user");
-                return Task.FromResult<IActionResult>(StatusCode(500, ex.Message)); ;
+                    _logger.LogTrace(ex, "Error on logging in user");
+                    return BadRequest(ex.Message);
             }
         }
 

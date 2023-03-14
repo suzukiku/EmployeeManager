@@ -3,9 +3,9 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 import { LoginModel } from 'src/app/request-base';
 import { SharedService } from 'src/app/shared.services';
 import { LocalStorageService } from 'src/app/local-storage.service';
-import { RegisterModel } from 'src/app/response-base';
+import { LoginResponse, RegisterModel } from 'src/app/response-base';
 import { Router } from '@angular/router';
-
+import { Token } from '../api-models' ;
 
 
 @Component({
@@ -62,10 +62,15 @@ export class LoginForm {
         }
       }
       this.service.login(loginModel).subscribe(response => {
-        if (response.body?.Token != null) {
+        var user = response?.body?.user;
+        this.service.openSnackBar("Successfully logged in from DB!", "Close")
+
+
+        if (response.body?.token == null) {
           return;
         }
-        if(user?.IsAdmin == false)
+        
+        if(user?.isAdmin == false)
         {
           this.router.navigate(['/','user-page']);
         }
@@ -73,24 +78,25 @@ export class LoginForm {
         {
           this.router.navigate(['/','admin-page']);
         }
-        var token = response.body?.Token;
-        // this.service.authToken = token?.TokenType + ' ' + token?.AccessToken;
+        
+        var responseBody = response?.body;
+        this.service.authToken = responseBody.token.tokenType + ' ' + responseBody.token.accessToken;
         this.localStorage.tokenStorage.set(this.service.authToken);
-        var user = response?.body?.User;
+
         if (!user) {
           this.service.openSnackBar("ERROR: User not registered / Username or Password invalid", "Close");
         }
         else {
-          if (!user.Email)
+          if (!user.email)
             this.service.openSnackBar("ERROR: User not registered / Username or Password invalid", "Close");
           else {
-            this.service.openSnackBar("Successfully logged in from DB!", "Close")
+            this.service.openSnackBar("Successfully logged in !", "Close")
             this.service.user = user;
             this.loggedIn = true;
             this.service.isLoggedIn = true;
             this.localUser = {
               isLoggedIn : true,
-              username : user.UserName,
+              username : user.userName,
             }
           }
         }});

@@ -23,16 +23,20 @@ export class SharedService {
     appLoaded: boolean = false;
     authToken: string = '';
     user: User;
-    private router: Router;
-    private _snackBar: MatSnackBar;
-    
+    // private router: Router;
 
 
     constructor(private http:HttpClient,
-        // private router: Router,
+        private router: Router,
+        private _snackBar: MatSnackBar
     ) {
 
     }
+
+    get hasToken(): boolean {
+      return !!this.authToken;
+    }
+    
 
     get(urlLink: string) {
       return this.http.get(urlLink,
@@ -186,12 +190,12 @@ export class SharedService {
     }
 
     login(loginModel: LoginModel) {
-        var obs = this.http.post(this.APIUrl+'login', loginModel) as Observable<HttpResponse<LoginResponse>>;
+        var obs = this.post(this.APIUrl+'login', loginModel) as Observable<HttpResponse<LoginResponse>>;
         return obs;
     }
     
     register(user: RegisterModel) {
-        var obs = this.http.post(this.APIUrl+'register', user) as Observable<HttpResponse<Object>>;
+        var obs = this.post(this.APIUrl+'register', user) as Observable<HttpResponse<Object>>;
         return obs;
     }
     

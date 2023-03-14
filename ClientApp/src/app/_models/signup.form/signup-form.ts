@@ -4,7 +4,7 @@ import { LocalStorageService } from 'src/app/local-storage.service';
 import { LoginModel } from 'src/app/request-base';
 import { RegisterModel } from 'src/app/response-base';
 import { SharedService } from 'src/app/shared.services';
-import { Route } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-signup-form',
@@ -15,7 +15,8 @@ export class Signup {
     constructor(
         private formBuilder: FormBuilder,
         private service: SharedService,
-        private localStorage: LocalStorageService
+        private localStorage: LocalStorageService,
+        private router: Router,
     ) {
       this.loginForm = this.formBuilder.group({
         username: ['', Validators.required],
@@ -75,15 +76,15 @@ export class Signup {
           if (responseLogin.status < 200 || responseLogin.status > 299 || responseLogin.body == null) {
             return;
           }
-          var token = responseLogin.body.Token;
-          this.service.authToken = token.TokenType + ' ' + token.AccessToken;
+          var token = responseLogin.body.token;
+          this.service.authToken = token.tokenType + ' ' + token.accessToken;
           this.localStorage.tokenStorage.set(this.service.authToken);
-          var user = responseLogin.body.User;
+          var user = responseLogin.body.user;
           if (!user) {
             this.service.openSnackBar("ERROR: User not registered / Username or Password invalid", "Close");
           }
           else {
-            if (!user.Email)
+            if (!user.email)
               this.service.openSnackBar("ERROR: User not registered / Username or Password invalid", "Close");
             else {
               this.service.openSnackBar("Successfully logged in from DB!", "Close")
@@ -92,8 +93,9 @@ export class Signup {
               this.service.isLoggedIn = true;
               this.localUser = {
                 isLoggedIn : true,
-                username : user.UserName,
+                username : user.userName,
               }
+              this.router.navigate(['./user-page']);
             }
           }});
       });

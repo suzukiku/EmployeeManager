@@ -2,6 +2,7 @@
 <div class='card'>
   <div class='card-header'>
     Ikon Soft Employee Manager
+    <button mat-button *ngIf="service.hasToken" (click)="signOut()">Sign out</button>
   </div>
   <!-- <div class='card-body'> -->
     <!-- <div class='table-responsive'>
@@ -56,7 +57,7 @@
 
   </div>
 <!-- </div> -->
-<li><a routerLink="/admin-page" routerLinkActive="active" ariaCurrentWhenActive="page">admin-page</a></li>
+<!-- <li><a routerLink="/admin-page" routerLinkActive="active" ariaCurrentWhenActive="page">admin-page</a></li>
 <li><a routerLink="/user-page" routerLinkActive="active" ariaCurrentWhenActive="page">user-page</a></li>
-<li><a routerLink="/auth-page" routerLinkActive="active" ariaCurrentWhenActive="page">auth-page</a></li>
+<li><a routerLink="/auth-page" routerLinkActive="active" ariaCurrentWhenActive="page">auth-page</a></li> -->
 <router-outlet></router-outlet>

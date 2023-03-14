@@ -13,6 +13,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { last, merge, tap } from 'rxjs';
 import {MatSortModule} from '@angular/material/sort';
 import {MatButtonModule} from '@angular/material/button';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -33,7 +34,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Employee>;
   sortedData: MatTableDataSource<Employee>;
 
-  constructor(private service: SharedService ,private dialog: MatDialog) {
+  constructor(public service: SharedService,
+    private dialog: MatDialog,
+    private router: Router) {
     this.dataSource = new MatTableDataSource<Employee>([]);
     this.sortedData = this.dataSource;
   }
@@ -49,7 +52,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
   ngOnInit() {
     this.loadEmployee();
+    
 
+  }
+
+  signOut(): void {
+    this.service.authToken = '';
+    this.router.navigate(['/auth-page']);
   }
   
   applyFilter(event: Event) {
