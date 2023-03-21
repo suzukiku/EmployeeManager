@@ -5,6 +5,7 @@ import { LoginModel } from 'src/app/request-base';
 import { RegisterModel } from 'src/app/response-base';
 import { SharedService } from 'src/app/shared.services';
 import { Router } from '@angular/router';
+import { Employee } from '../api-models';
 
 @Component({
     selector: 'app-signup-form',
@@ -67,6 +68,10 @@ export class Signup {
         if (response.status < 200 || response.status > 299) {
           return;
         }
+        var employee = new Employee();
+        this.service.postEmployee(employee).subscribe(response => {
+          console.log('done');
+      });
         this.service.openSnackBar("Successfully registered user!", "Close");
 
         var loginModel = new LoginModel();
@@ -95,6 +100,7 @@ export class Signup {
                 isLoggedIn : true,
                 username : user.userName,
               }
+
               this.router.navigate(['./user-page']);
             }
           }});

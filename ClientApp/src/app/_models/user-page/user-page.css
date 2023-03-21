@@ -4,7 +4,7 @@
 }
 .dialog-header-wrapper {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
 }
 
 mat-form-field {
@@ -85,4 +85,8 @@ cd-timer ::ng-deep {
 }
 .report-wrapper {
   display: flex;
+}
+.details-wrapper{
+  margin-top:2vh;
+
 }

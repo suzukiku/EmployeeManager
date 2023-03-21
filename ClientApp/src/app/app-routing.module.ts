@@ -19,6 +19,11 @@ const routes: Routes = [
   { 
     path: 'admin-page',
     component: AdminPage
+  },
+  {
+    path: '',
+    redirectTo: '/auth-page',
+    pathMatch:'full'
   }
   
 ];
