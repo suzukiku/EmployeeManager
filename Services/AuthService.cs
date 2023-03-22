@@ -67,6 +67,8 @@ namespace coreAPI.Service
         /// <param name="isPublisher">If the newly registered is a publisher</param>
         /// <returns>The result of an identity operation and if it failed or not</returns>
         public Task<IdentityResult> Register(string username,
+            string firstname,
+            string lastname,
             string email,
             string password = "",
             bool isAdmin = false)
@@ -75,6 +77,8 @@ namespace coreAPI.Service
             var user = new User()
             {
                 UserName = username,
+                FirstName = firstname,
+                LastName = lastname,
                 Email = email,
                 EmailConfirmed = false,
                 PhoneNumberConfirmed = false,
@@ -100,6 +104,8 @@ namespace coreAPI.Service
         /// <returns>The result of an identity operation and if it failed or not</returns>
         public async Task<IdentityResult> Edit(Guid id,
             string username,
+            string firstName,
+            string lastName,
             string email,
             bool isAdmin)
         {
@@ -110,6 +116,8 @@ namespace coreAPI.Service
                 return null;
             }
             user.UserName = username;
+            user.FirstName = firstName;
+            user.LastName = lastName;
             user.Email = email;
             user.IsAdmin = isAdmin;
             var result = await _userManager.UpdateAsync(user);

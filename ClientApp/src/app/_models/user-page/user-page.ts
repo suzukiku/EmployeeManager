@@ -50,7 +50,16 @@ export class UserPage {
 
         if (!this.employee) {
             this.employee = new Employee();
+            this.employee.firstName = this.service.user.firstName;
+            this.employee.lastName = this.service.user.lastName;
+            this.employee.email = this.service.user.email;
             this.isnew = true;
+        }
+        else
+        {
+            this.employee.firstName = this.service.user.firstName;
+            this.employee.lastName = this.service.user.lastName;
+            this.employee.email = this.service.user.email;
         }
 
         this.form = this.formBuilder.group({
@@ -127,7 +136,7 @@ export class UserPage {
                 });
             });
 
-            this.loadTimeHistory();
+            // this.loadTimeHistory();
 
         }
         

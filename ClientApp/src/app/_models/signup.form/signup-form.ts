@@ -26,12 +26,16 @@ export class Signup {
       this.registerForm = this.formBuilder.group({
         email: ['', [Validators.email, Validators.required]],
         username: ['', Validators.required],
+        firstname: ['', Validators.required],
+        lastname: ['', Validators.required],
         password: ['', Validators.required],
         confirmPass: ['', Validators.required]
       });
     }
     registerForm: FormGroup;
     loginForm: FormGroup;
+    firstname: string;
+    lastname: string;
     username: string;
     password: string;
     email: any;
@@ -44,6 +48,8 @@ export class Signup {
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
             username: [this.username, Validators.required],
+            firstname: [this.firstname, Validators.required],
+            lastname: [this.lastname, Validators.required],
             password: [this.password, Validators.required],
             email: [this.email, Validators.required],
         });
@@ -62,6 +68,12 @@ export class Signup {
           case "password":
             registerRequest.Password = control?.value;
             break;
+          case "firstname":
+            registerRequest.FirstName = control?.value;
+            break;
+          case "lastname":
+            registerRequest.LastName = control?.value;
+            break;
         }
       }
       this.service.register(registerRequest).subscribe(response => {
@@ -69,6 +81,10 @@ export class Signup {
           return;
         }
         var employee = new Employee();
+        employee.firstName=registerRequest.FirstName;
+        employee.lastName=registerRequest.LastName;
+        employee.email=registerRequest.Email;
+        employee.employeeID = null;
         this.service.postEmployee(employee).subscribe(response => {
           console.log('done');
       });

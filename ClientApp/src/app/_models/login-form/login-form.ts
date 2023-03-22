@@ -5,7 +5,7 @@ import { SharedService } from 'src/app/shared.services';
 import { LocalStorageService } from 'src/app/local-storage.service';
 import { LoginResponse, RegisterModel } from 'src/app/response-base';
 import { Router } from '@angular/router';
-import { Token } from '../api-models' ;
+import { Employee, Token } from '../api-models' ;
 
 
 @Component({
@@ -62,7 +62,8 @@ export class LoginForm {
         }
       }
       this.service.login(loginModel).subscribe(response => {
-        var user = response?.body?.user;
+        var user = response?.body!.user;
+        this.service.user = user;
         this.service.openSnackBar("Successfully logged in from DB!", "Close")
 
 

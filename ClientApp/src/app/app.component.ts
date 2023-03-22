@@ -5,7 +5,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SharedService } from './shared.services';
-import { Employee } from './_models/api-models';
+import { Employee, User } from './_models/api-models';
 import { FileNameDialogComponent } from './_models/popup-dialog/popup-dialog.component';
 import { FileNameDialogComponentActions } from './_models/popup-dialog-actions/popup-dialog.component';
 import {MatSort, Sort} from '@angular/material/sort';
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
   ngOnInit() {
-    this.loadEmployee();
+    // this.loadEmployee();
     
 
   }
@@ -59,6 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   signOut(): void {
     this.service.authToken = '';
     this.router.navigate(['/auth-page']);
+    this.service.user = new User();
   }
   
   applyFilter(event: Event) {

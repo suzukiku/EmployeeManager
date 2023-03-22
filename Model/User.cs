@@ -8,6 +8,12 @@ namespace Project3.Model
         [Required, MaxLength(320)]
         public override string UserName { get => base.UserName; set => base.UserName = value; }
 
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
         public bool IsAdmin { get; set; }
 
         public virtual Employee Employee { get; set; }

@@ -22,11 +22,15 @@ export class RegisterModel {
 
     constructor() {
         this.UserName = '';
+        this.FirstName = '';
+        this.LastName = '';
         this.Password = '';
         this.Email = '';
     }
 
     public UserName: string;
+    public FirstName: string;
+    public LastName: string;
     public Password: string;
     public Email: string;
 }

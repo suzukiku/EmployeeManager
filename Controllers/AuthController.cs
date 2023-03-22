@@ -111,6 +111,20 @@ namespace coreAPI.Controller
                     return BadRequest("Missing Username!");
                 }
 
+                _logger.LogDebug($"Trying to register {model.FirstName}");
+                if (model.FirstName is null)
+                {
+                    _logger.LogInformation($"Missing firstname when registering");
+                    return BadRequest("Missing Firstname!");
+                }
+
+                _logger.LogDebug($"Trying to register {model.LastName}");
+                if (model.LastName is null)
+                {
+                    _logger.LogInformation($"Missing lastname when registering");
+                    return BadRequest("Missing Lastname!");
+                }
+
                 if (model.Password is null)
                 {
                     _logger.LogInformation($"Missing password when registering");
@@ -123,7 +137,7 @@ namespace coreAPI.Controller
                     return BadRequest("Missing Email");
                 }
 
-                var result = await AuthService.Register(model.UserName, model.Email, model.Password);
+                var result = await AuthService.Register(model.UserName, model.FirstName, model.LastName, model.Email, model.Password);
                 if (!result.Succeeded)
                 {
                     var errors = "";

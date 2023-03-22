@@ -22,7 +22,7 @@ export class SharedService {
     isLoggedIn: boolean = false;
     appLoaded: boolean = false;
     authToken: string = '';
-    user: User;
+    user: any;
     // private router: Router;
 
 
