@@ -1,4 +1,4 @@
-﻿namespace Project3.Model.DTO
+namespace Project3.Model.DTO
 {
     public class TimeManagerDTO
     {
@@ -9,6 +9,5 @@
 
         public string BreakTime { get;set;}
 
-        public Guid EmployeeID { get; set; }
     }
 }

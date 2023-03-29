@@ -80,10 +80,12 @@ export class Signup {
         if (response.status < 200 || response.status > 299) {
           return;
         }
+        var userId = response.body?.id!;
         var employee = new Employee();
         employee.firstName=registerRequest.FirstName;
         employee.lastName=registerRequest.LastName;
-        employee.email=registerRequest.Email;
+        employee.email = registerRequest.Email;
+        employee.userId = userId;
         employee.employeeID = null;
         this.service.postEmployee(employee).subscribe(response => {
           console.log('done');

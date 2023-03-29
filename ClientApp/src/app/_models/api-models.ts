@@ -4,11 +4,13 @@ export class Employee{
         this.firstName = '';
         this.lastName = '';
         this.email = '';
+        this.userId = '';
     }
     public employeeID:string | null;
     public firstName: string;
     public lastName: string;
     public email: string;
+    public userId: string;
 }
 
 export class ResponseBase {

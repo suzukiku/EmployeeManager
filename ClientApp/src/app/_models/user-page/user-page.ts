@@ -44,103 +44,120 @@ export class UserPage {
 
     ) 
     {
-        
-    }
-    ngOnInit() {
-
-        if (!this.employee) {
-            this.employee = new Employee();
-            this.employee.firstName = this.service.user.firstName;
-            this.employee.lastName = this.service.user.lastName;
-            this.employee.email = this.service.user.email;
-            this.isnew = true;
-        }
-        else
-        {
-            this.employee.firstName = this.service.user.firstName;
-            this.employee.lastName = this.service.user.lastName;
-            this.employee.email = this.service.user.email;
-        }
-
         this.form = this.formBuilder.group({
             name: [this.employee.firstName + ' ' + this.employee.lastName],
             email: [this.employee.email],
             workHours: [],
             breakTime: []
         });
+    }
+    ngOnInit() {
 
-        for (const field in this.form.controls) {
-            const control = this.form.get(field);
-            control?.disable();
-        }
+        this.localStorage.tokenStorage.get('').subscribe(token => {
+            this.service.authToken = token;
 
-        if (!this.isnew) {
-            this.localStorage.popupClosedTimeStorage.get(this.employee.employeeID ?? "", 0).subscribe((popupClosedTime) => {
-                this.localStorage.breakTimeStoppedStorage.get(this.employee.employeeID ?? "", false).subscribe((breakTimeActive) => {
-                    this.break = breakTimeActive;
-                    this.localStorage.breakTimeStorage.get(this.employee.employeeID ?? "", 0).subscribe((breakTimeN) => {
-                        if (breakTimeN == 0) {
-                            this.breakcalctime = 0;
-                        } else {
-                            if(this.break == true) {
-                                const now = new Date();
-                                this.breakcalctime = ((now.getHours().valueOf() * 60 * 60 + now.getMinutes().valueOf() * 60 + now.getSeconds().valueOf()) - popupClosedTime) + breakTimeN;
-                            } else {
-                                this.breakcalctime = breakTimeN;
-                            }
-                        }
-
-                        if (this.break) {
-                            setTimeout(() => {
-                                this.breaktimer.start();
-                            }, 100); 
-                        } else {
-                            setTimeout(() => {
-                                this.breaktimer.start();
-                                setTimeout(() => { 
-                                    this.breaktimer.stop();
-                                }, 100); 
-                            }, 100); 
-                        }
-
-                        this.localStorage.checkInTimeStorage.get(this.employee.employeeID ?? "", 0).subscribe((checkInTimeN) => {
-                            if (checkInTimeN == 0) {
-                                this.workcalctime = 0;
-                            } else {
-                                if(this.break == false) {
-                                    const now = new Date();
-                                    this.workcalctime = ((now.getHours().valueOf() * 60 * 60 + now.getMinutes().valueOf() * 60 + now.getSeconds().valueOf()) - popupClosedTime) + checkInTimeN;
-                                } else {
-                                    this.workcalctime = checkInTimeN;
-                                }
-                            }
+            this.service.checkToken().subscribe(response => {
+                if (response.status !== 200) {
+                    return;
+                }
     
-                            if (!this.break && checkInTimeN != 0) {
-                                setTimeout(() => {
-                                    this.worktimer.start();
-                                }, 100); 
-                            } else {
-                                setTimeout(() => {
-                                    this.worktimer.start();
-                                    setTimeout(() => { 
-                                        this.worktimer.stop();
+                this.service.user = response.body;
+    
+                if (!this.employee) {
+                    this.employee = new Employee();
+                    this.employee.firstName = this.service.user.firstName;
+                    this.employee.lastName = this.service.user.lastName;
+                    this.employee.email = this.service.user.email;
+                    this.isnew = true;
+                }
+                else if (this.employee != null)
+                {
+                    this.employee.firstName = this.service.user.firstName;
+                    this.employee.lastName = this.service.user.lastName;
+                    this.employee.email = this.service.user.email;
+                }
+        
+                this.form = this.formBuilder.group({
+                    name: [this.employee.firstName + ' ' + this.employee.lastName],
+                    email: [this.employee.email],
+                    workHours: [],
+                    breakTime: []
+                });
+        
+                for (const field in this.form.controls) {
+                    const control = this.form.get(field);
+                    control?.disable();
+                }
+        
+                if (!this.isnew) {
+                    this.localStorage.popupClosedTimeStorage.get(this.employee.employeeID ?? "", 0).subscribe((popupClosedTime) => {
+                        this.localStorage.breakTimeStoppedStorage.get(this.employee.employeeID ?? "", false).subscribe((breakTimeActive) => {
+                            this.break = breakTimeActive;
+                            this.localStorage.breakTimeStorage.get(this.employee.employeeID ?? "", 0).subscribe((breakTimeN) => {
+                                if (breakTimeN == 0) {
+                                    this.breakcalctime = 0;
+                                } else {
+                                    if(this.break == true) {
+                                        const now = new Date();
+                                        this.breakcalctime = ((now.getHours().valueOf() * 60 * 60 + now.getMinutes().valueOf() * 60 + now.getSeconds().valueOf()) - popupClosedTime) + breakTimeN;
+                                    } else {
+                                        this.breakcalctime = breakTimeN;
+                                    }
+                                }
+        
+                                if (this.break) {
+                                    setTimeout(() => {
+                                        this.breaktimer.start();
                                     }, 100); 
-                                }, 100); 
-                            }
-
-                            if (checkInTimeN != 0) {
-                                this.firstcheckin = true;
-                            }
+                                } else {
+                                    setTimeout(() => {
+                                        this.breaktimer.start();
+                                        setTimeout(() => { 
+                                            this.breaktimer.stop();
+                                        }, 100); 
+                                    }, 100); 
+                                }
+        
+                                this.localStorage.checkInTimeStorage.get(this.employee.employeeID ?? "", 0).subscribe((checkInTimeN) => {
+                                    if (checkInTimeN == 0) {
+                                        this.workcalctime = 0;
+                                    } else {
+                                        if(this.break == false) {
+                                            const now = new Date();
+                                            this.workcalctime = ((now.getHours().valueOf() * 60 * 60 + now.getMinutes().valueOf() * 60 + now.getSeconds().valueOf()) - popupClosedTime) + checkInTimeN;
+                                        } else {
+                                            this.workcalctime = checkInTimeN;
+                                        }
+                                    }
+            
+                                    if (!this.break && checkInTimeN != 0) {
+                                        setTimeout(() => {
+                                            this.worktimer.start();
+                                        }, 100); 
+                                    } else {
+                                        setTimeout(() => {
+                                            this.worktimer.start();
+                                            setTimeout(() => { 
+                                                this.worktimer.stop();
+                                            }, 100); 
+                                        }, 100); 
+                                    }
+        
+                                    if (checkInTimeN != 0) {
+                                        this.firstcheckin = true;
+                                    }
+                                });
+                            });
                         });
                     });
-                });
-            });
-
-            // this.loadTimeHistory();
-
-        }
         
+                    this.loadTimeHistory();
+        
+                }
+    
+            })
 
+        });    
     }
     ngOnDestroy() {
         if (this.breaktimer.get().seconds !== undefined) {

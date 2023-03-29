@@ -22,7 +22,9 @@ namespace Project3.Model
 
         public virtual ICollection<TimeManager> TimeManager { get; set; }
 
-        [ForeignKey("Id")]
+
+        [ForeignKey("User")]
+        public virtual string UserId { get; set; }
         public virtual User User { get; set; }
     }
 }

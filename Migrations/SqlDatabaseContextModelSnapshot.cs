@@ -211,20 +211,20 @@ namespace Project3.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Id")
+                    b.Property<string>("LastName")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("EmployeeID");
 
-                    b.HasIndex("Id")
-                        .IsUnique()
-                        .HasFilter("[Id] IS NOT NULL");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Employee");
                 });
@@ -430,7 +430,9 @@ namespace Project3.Migrations
                 {
                     b.HasOne("Project3.Model.User", "User")
                         .WithOne("Employee")
-                        .HasForeignKey("Project3.Model.Employee", "Id");
+                        .HasForeignKey("Project3.Model.Employee", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

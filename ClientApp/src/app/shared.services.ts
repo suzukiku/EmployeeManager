@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { Time } from '@angular/common';
 import { LoginModel } from './request-base';
 import { LoginResponse, RegisterModel } from './response-base';
+import { LocalStorageService } from './local-storage.service';
 
 
 @Injectable({
@@ -28,7 +29,8 @@ export class SharedService {
 
     constructor(private http:HttpClient,
         private router: Router,
-        private _snackBar: MatSnackBar
+        private _snackBar: MatSnackBar,
+        private localStorage: LocalStorageService
     ) {
 
     }
@@ -48,6 +50,7 @@ export class SharedService {
               break;
             case 401:
               this.openSnackBar('ERROR: Unauthorized!', "Ok");
+              // go back to login
               break;
             case 403:
               this.openSnackBar('You naughty, naughty!', "Ok");
@@ -69,13 +72,8 @@ export class SharedService {
                 this.openSnackBar('ERROR: ' + errorResponse.error, "Ok");
                 break;
               case 401:
+                  // go back to login
                 this.openSnackBar('ERROR: ' + errorResponse.error, "Ok");
-                if (!suppressErrors) {
-                  setTimeout(() => this.router.navigate(['/landing-page']), 1000);
-                  this.openSnackBar('ERROR: Unauthorized!', "Ok");
-                } else {
-                  this.appLoaded = true;
-                }
                 break;
               case 403:
                 this.openSnackBar('You naughty, naughty!', "Ok");
@@ -97,10 +95,8 @@ export class SharedService {
                 this.openSnackBar('ERROR: ' + errorResponse.error, "Ok");
                 break;
               case 401:
-                if (!suppressErrors) {
-                  setTimeout(() => this.router.navigate(['/landing-page']), 1000);
-                  this.openSnackBar('ERROR: Unauthorized!', "Ok");
-                }
+                 // go back to login
+                this.openSnackBar('ERROR: Unauthorized!', "Ok");
                 break;
               case 403:
                 this.openSnackBar('You naughty, naughty!', "Ok");
@@ -122,6 +118,7 @@ export class SharedService {
                 this.openSnackBar('ERROR: ' + errorResponse.error, "Ok");
                 break;
               case 401:
+                 // go back to login
                 this.openSnackBar('ERROR: Unauthorized!', "Ok");
                 break;
               case 403:
@@ -183,7 +180,7 @@ export class SharedService {
     }
 
     postTimeManager(timemanager: TimeManager): Observable<Object> {
-        return this.http.post(this.APIUrl + "TimeManager", timemanager) as Observable<Object>;
+        return this.post(this.APIUrl + "TimeManager", timemanager) as Observable<HttpResponse<Object>>;
     }
     postWorkingHours(workinghours: WorkHours): Observable<object> {
         return this.http.post(this.APIUrl + "WorkHours", workinghours) as Observable<Object>;
@@ -195,9 +192,14 @@ export class SharedService {
     }
     
     register(user: RegisterModel) {
-        var obs = this.post(this.APIUrl+'register', user) as Observable<HttpResponse<Object>>;
+        var obs = this.post(this.APIUrl+'register', user) as Observable<HttpResponse<User>>;
         return obs;
     }
+
+    checkToken() {
+      var obs = this.post(this.APIUrl+'checkToken', null) as Observable<HttpResponse<User>>;
+      return obs;
+  }
     
     openSnackBar(message: string, action: string) {
         this._snackBar.open(message, action, {
