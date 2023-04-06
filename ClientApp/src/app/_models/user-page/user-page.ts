@@ -13,16 +13,21 @@ import { Input,} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { WorkHours } from '../api-models';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import { MatSort, Sort } from '@angular/material/sort';
 
 @Component({
     selector: 'user-page',
     templateUrl: './user-page.html',
     styleUrls: ['./user-page.css']
 })
+
 export class UserPage {
     @ViewChild('worktimer') worktimer: CdTimerComponent;
     @ViewChild('breaktimer') breaktimer: CdTimerComponent;
+    @ViewChild(MatSort) sort: MatSort;
+
     dataSource: MatTableDataSource<TimeManager>;
+    sortedData: MatTableDataSource<TimeManager>;
     columnsToDisplay: string [] = ['TimeStamp', 'WorkHours', 'BreakTime'];
     isnew: boolean = false;
     form: FormGroup;
@@ -35,6 +40,7 @@ export class UserPage {
     firstworktime: number;
     checkintime: number;
     breakstarttime: number;
+
     constructor(
         private service: SharedService,
         private formBuilder: FormBuilder,
@@ -68,6 +74,7 @@ export class UserPage {
                     this.employee.firstName = this.service.user.firstName;
                     this.employee.lastName = this.service.user.lastName;
                     this.employee.email = this.service.user.email;
+                    this.employee.employeeID = this.service.user.employee.employeeID;
                     this.isnew = true;
                 }
                 else if (this.employee != null)
@@ -75,6 +82,7 @@ export class UserPage {
                     this.employee.firstName = this.service.user.firstName;
                     this.employee.lastName = this.service.user.lastName;
                     this.employee.email = this.service.user.email;
+                    this.employee.employeeID = this.service.user.employee.employeeID;
                 }
         
                 this.form = this.formBuilder.group({
@@ -122,7 +130,7 @@ export class UserPage {
                                     if (checkInTimeN == 0) {
                                         this.workcalctime = 0;
                                     } else {
-                                        if(this.break == false) {
+                                        if (this.break == false) {
                                             const now = new Date();
                                             this.workcalctime = ((now.getHours().valueOf() * 60 * 60 + now.getMinutes().valueOf() * 60 + now.getSeconds().valueOf()) - popupClosedTime) + checkInTimeN;
                                         } else {
@@ -159,6 +167,7 @@ export class UserPage {
 
         });    
     }
+
     ngOnDestroy() {
         if (this.breaktimer.get().seconds !== undefined) {
             var secCount = (this.breaktimer.get().hours ?? 0) * 60 * 60 + (this.breaktimer.get().minutes ?? 0) * 60 + this.breaktimer.get().seconds;
@@ -173,9 +182,22 @@ export class UserPage {
         var popupClosedTime = now.getHours().valueOf() * 60 * 60 + now.getMinutes().valueOf() * 60 + now.getSeconds().valueOf();
         this.localStorage.popupClosedTimeStorage.set(this.employee.employeeID ?? "", popupClosedTime);
     }
+
     loadTimeHistory() {
         this.service.getTimeManagerByEmployeeId(this.employee.employeeID ?? "").subscribe(response => {
-          this.dataSource = new MatTableDataSource(response);
+            if (response.status < 200 || response.status > 299) {
+                return;
+            }
+            if (!response.body) {
+                return;
+            }
+            this.dataSource = new MatTableDataSource(response.body);
+            var pieChartData = [
+                {
+                    name: "Break Time",
+                    //value: response.body.map(tm => this.convertTimerToString(tm.breakTime))
+                }
+            ]
         });
       }
 
@@ -197,21 +219,25 @@ export class UserPage {
             this.firstworktime= (now.getHours().valueOf() * 60 * 60 + now.getMinutes().valueOf() * 60 + now.getSeconds().valueOf());
             this.snackBar.open('Checked in!', 'Close',{
                 duration: 2500
-            });        }
+            });        
+        }
         const now = new Date();
         this.checkintime = (now.getHours().valueOf() * 60 * 60 + now.getMinutes().valueOf() * 60 + now.getSeconds().valueOf());
     }
+
     checkout() {
         if(confirm("Are you sure you want to check out?"))
         {
             this.breaktimer.stop();
             this.worktimer.stop();
             this.firstcheckin = !this.firstcheckin;
+
             const time = new TimeManager();
             time.timemanagerID = null;
             time.breakTime = this.convertTimerToString(this.breaktimer);
             time.workHours = this.convertTimerToString(this.worktimer);
             time.employeeId = this.employee.employeeID ?? "";
+
             this.service.postTimeManager(time).subscribe(response => {
                 console.log('done');
                 this.loadTimeHistory();
@@ -219,6 +245,7 @@ export class UserPage {
                 this.workcalctime = 0;
                 this.breaktimer.reset();
                 this.worktimer.reset();
+
                 setTimeout(() => {
                     this.worktimer.start();
                     this.breaktimer.start();
@@ -228,6 +255,7 @@ export class UserPage {
                     }, 100); 
                 }, 100); 
             });
+
             this.localStorage.breakTimeStorage.set(this.employee.employeeID ?? "", 0);
             this.localStorage.checkInTimeStorage.set(this.employee.employeeID ?? "", 0);
             this.localStorage.breakTimeStoppedStorage.set(this.employee.employeeID ?? "", false);
@@ -286,4 +314,30 @@ export class UserPage {
             duration: 2500
         });
     }
-}
+    ngAfterViewInit() {
+        this.dataSource.sort = this.sort;
+      }
+    sortData(sort:Sort){
+        const data = this.dataSource.data.slice();
+        if (!sort.active || sort.direction === '') {
+          this.dataSource.data = data;
+          return;
+        }
+        this.dataSource.data = data.sort((a, b) => {
+          const isAsc = sort.direction === 'asc';
+          switch (sort.active) {
+            case 'TimeStamp':
+              return compare(a.timeStamp, b.timeStamp, isAsc);
+            case 'WorkHours':
+              return compare(a.workHours, b.workHours, isAsc);
+            case 'BreakTime':
+              return compare(a.breakTime, b.breakTime, isAsc);
+              default:
+                return 0;
+          }
+        });
+      }
+    }
+    function compare(a: Date | string, b: Date | string, isAsc: boolean) {
+        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+      }

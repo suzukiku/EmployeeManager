@@ -55,24 +55,24 @@
   </div>
 </div>
 <div>
-  <mat-table #table [dataSource]="dataSource" class="fixed-height">
+  <mat-table #table [dataSource]="dataSource" class="fixed-height" matSort (matSortChange)="sortData($event)" >
 
     <ng-container matColumnDef="TimeStamp">
-      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header="TimeStamp"> Date </mat-header-cell>
       <mat-cell *matCellDef="let time"> {{time.timeStamp | date: 'mediumDate'}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="WorkHours">
-      <mat-header-cell *matHeaderCellDef> Hours Worked </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header="WorkHours"> Hours Worked </mat-header-cell>
       <mat-cell *matCellDef="let time"> {{time.workHours}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="BreakTime">
-      <mat-header-cell *matHeaderCellDef> Break Time </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header="BreakTime"> Break Time </mat-header-cell>
       <mat-cell *matCellDef="let time"> {{time.breakTime}} </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef='columnsToDisplay'></mat-header-row>
+    <mat-header-row *matHeaderRowDef='columnsToDisplay; sticky: true'></mat-header-row>
     <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
 
   </mat-table>

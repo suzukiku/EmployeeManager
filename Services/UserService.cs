@@ -1,4 +1,5 @@
 using coreAPI.Repository;
+using Microsoft.EntityFrameworkCore;
 using Project3.Model;
 
 namespace coreAPI.Service
@@ -21,5 +22,10 @@ namespace coreAPI.Service
             Logger.LogInformation($"Getting users filtered by {filterBy}");
             return DbSet.Where(i => i.UserName.Contains(filterBy));
         }
+
+    public User GetByUsername(string username)
+    {
+      return DbSet.Include(u => u.Employee).Where(u => u.UserName == username).First();
     }
+  }
 }

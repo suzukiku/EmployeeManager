@@ -171,12 +171,12 @@ export class SharedService {
         return this.http.put(this.APIUrl + "Employee", employee) as Observable<ResponseBase>;
     }
 
-    getTimeManager(): Observable<TimeManager[]> {
-        return this.http.get<TimeManager[]>(this.APIUrl + "TimeManager");
+    getTimeManager(): Observable<HttpResponse<TimeManager[]>> {
+        return this.get(this.APIUrl + "TimeManager") as Observable<HttpResponse<TimeManager[]>>;
     }
 
-    getTimeManagerByEmployeeId(employeeId: string): Observable<TimeManager[]> {
-        return this.http.get<TimeManager[]>(this.APIUrl + "TimeManager/byEmployee/" + employeeId);
+    getTimeManagerByEmployeeId(employeeId: string): Observable<HttpResponse<TimeManager[]>> {
+        return this.get(this.APIUrl + "TimeManager/byEmployee/" + employeeId) as Observable<HttpResponse<TimeManager[]>>;
     }
 
     postTimeManager(timemanager: TimeManager): Observable<Object> {

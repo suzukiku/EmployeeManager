@@ -83,6 +83,9 @@ mat-form-field {
 cd-timer ::ng-deep {
   color:white;
 }
+.fixed-height {
+  height: 37vh;
+}
 .report-wrapper {
   display: flex;
 }

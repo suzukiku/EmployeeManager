@@ -21,7 +21,7 @@ export class ChartsComponent {
 
   colorScheme = {
     name: 'chart-color',
-    domain: ['#bca0dc', '#7c5295', '#663a82', '#52307c'],
+    domain: ['#7c5295', '#9981b5'],
     selectable: true,
     group: ScaleType.Time
   };
@@ -31,14 +31,14 @@ export class ChartsComponent {
   }
 
   onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+    // console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 
   onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
+    // console.log('Activate', JSON.parse(JSON.stringify(data)));
   }
 
   onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+    // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 }

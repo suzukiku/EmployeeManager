@@ -146,7 +146,13 @@ export class FileNameDialogComponentActions {
     }
     loadTimeHistory() {
         this.service.getTimeManagerByEmployeeId(this.employee.employeeID ?? "").subscribe(response => {
-          this.dataSource = new MatTableDataSource(response);
+            if (response.status < 200 || response.status > 299) {
+                return;
+            }
+            if (!response.body) {
+                return;
+            }
+            this.dataSource = new MatTableDataSource(response.body);
         });
       }
     onCloseDialog() {

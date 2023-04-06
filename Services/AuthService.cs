@@ -170,7 +170,7 @@ namespace coreAPI.Service
             var token = new JwtSecurityToken(
                 configuration["JWT:ValidIssuer"],
                 configuration["JWT:ValidAudience"],
-                expires: DateTime.UtcNow.AddMinutes(10),
+                expires: DateTime.UtcNow.AddMinutes(1000),
                 claims: claims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
             );

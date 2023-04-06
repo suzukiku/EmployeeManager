@@ -67,7 +67,7 @@ namespace coreAPI.Controller
         }
         _logger.LogInformation($"{model.Username} has successfully logged in");
 
-        var user = AuthService.GetUserByUsername(model.Username);
+        var user = Services.UserService.GetByUsername(model.Username);
         return Ok(new
         {
           Token = tokenResponse,
@@ -90,7 +90,8 @@ namespace coreAPI.Controller
     public IActionResult CheckToken()
     {
       _logger.LogInformation($"{CurrentUser?.UserName} has checked his token, and it is valid");
-      return Ok(CurrentUser);
+      var user = Services.UserService.GetByUsername(CurrentUser.UserName);
+      return Ok(user);
     }
 
     [HttpPost]
