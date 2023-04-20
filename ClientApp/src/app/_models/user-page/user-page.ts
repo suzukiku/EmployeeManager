@@ -40,6 +40,7 @@ export class UserPage {
     firstworktime: number;
     checkintime: number;
     breakstarttime: number;
+    pieChartData: any;
 
     constructor(
         private service: SharedService,
@@ -50,6 +51,7 @@ export class UserPage {
 
     ) 
     {
+        this.dataSource = new MatTableDataSource();
         this.form = this.formBuilder.group({
             name: [this.employee.firstName + ' ' + this.employee.lastName],
             email: [this.employee.email],
@@ -96,7 +98,11 @@ export class UserPage {
                     const control = this.form.get(field);
                     control?.disable();
                 }
-        
+
+        //timer logic starts here
+                
+                //gets the data from local storage for1
+
                 if (!this.isnew) {
                     this.localStorage.popupClosedTimeStorage.get(this.employee.employeeID ?? "", 0).subscribe((popupClosedTime) => {
                         this.localStorage.breakTimeStoppedStorage.get(this.employee.employeeID ?? "", false).subscribe((breakTimeActive) => {
@@ -115,12 +121,12 @@ export class UserPage {
         
                                 if (this.break) {
                                     setTimeout(() => {
-                                        this.breaktimer.start();
+                                        this.breaktimer.start();                    //starts break timer
                                     }, 100); 
                                 } else {
                                     setTimeout(() => {
                                         this.breaktimer.start();
-                                        setTimeout(() => { 
+                                        setTimeout(() => {                          //populates timer w the right amount
                                             this.breaktimer.stop();
                                         }, 100); 
                                     }, 100); 
@@ -168,20 +174,22 @@ export class UserPage {
         });    
     }
 
-    ngOnDestroy() {
-        if (this.breaktimer.get().seconds !== undefined) {
-            var secCount = (this.breaktimer.get().hours ?? 0) * 60 * 60 + (this.breaktimer.get().minutes ?? 0) * 60 + this.breaktimer.get().seconds;
-            this.localStorage.breakTimeStorage.set(this.employee.employeeID ?? "", secCount);
-        }
-        if (this.worktimer.get().seconds !== undefined) {
-            var secCount = (this.worktimer.get().hours ?? 0) * 60 * 60 + (this.worktimer.get().minutes ?? 0) * 60 + this.worktimer.get().seconds;
-            this.localStorage.checkInTimeStorage.set(this.employee.employeeID ?? "", secCount);
-        }
-        this.localStorage.breakTimeStoppedStorage.set(this.employee.employeeID ?? "", this.break);
-        var now = new Date();
-        var popupClosedTime = now.getHours().valueOf() * 60 * 60 + now.getMinutes().valueOf() * 60 + now.getSeconds().valueOf();
-        this.localStorage.popupClosedTimeStorage.set(this.employee.employeeID ?? "", popupClosedTime);
-    }
+    // ngOnDestroy() {
+    //     if (this.breaktimer.get().seconds !== undefined) {
+    //         var secCount = (this.breaktimer.get().hours ?? 0) * 60 * 60 + (this.breaktimer.get().minutes ?? 0) * 60 + this.breaktimer.get().seconds;
+    //         this.localStorage.breakTimeStorage.set(this.employee.employeeID ?? "", secCount);
+    //     }
+    //     if (this.worktimer.get().seconds !== undefined) {
+    //         var secCount = (this.worktimer.get().hours ?? 0) * 60 * 60 + (this.worktimer.get().minutes ?? 0) * 60 + this.worktimer.get().seconds;
+    //         this.localStorage.checkInTimeStorage.set(this.employee.employeeID ?? "", secCount);
+    //     }
+    //     this.localStorage.breakTimeStoppedStorage.set(this.employee.employeeID ?? "", this.break);
+    //     var now = new Date();
+    //     var popupClosedTime = now.getHours().valueOf() * 60 * 60 + now.getMinutes().valueOf() * 60 + now.getSeconds().valueOf();
+    //     this.localStorage.popupClosedTimeStorage.set(this.employee.employeeID ?? "", popupClosedTime);
+    // } these need to moved into checkout logic and check in logic
+
+    secondsMultiplicationLut = [1, 60, 3600, 86400];
 
     loadTimeHistory() {
         this.service.getTimeManagerByEmployeeId(this.employee.employeeID ?? "").subscribe(response => {
@@ -191,15 +199,29 @@ export class UserPage {
             if (!response.body) {
                 return;
             }
-            this.dataSource = new MatTableDataSource(response.body);
-            var pieChartData = [
-                {
-                    name: "Break Time",
-                    //value: response.body.map(tm => this.convertTimerToString(tm.breakTime))
-                }
-            ]
+            this.dataSource = new MatTableDataSource(response.body.timeManager);
+            let chartDataSting = response.body.timeManagerResult;
+            let breakTimeGroups =  chartDataSting.breakTime.split(/(\d\d)/).filter(bt => !!bt && !Number.isNaN(Number(bt))).reverse();
+            let breakTimeSeconds = 0;
+            for (let i = 0; i < breakTimeGroups.length; i++) {
+                breakTimeSeconds += Number(breakTimeGroups[i]) * this.secondsMultiplicationLut[i];
+            }
+            let workTimeGroups =  chartDataSting.workHours.split(/(\d\d)/).filter(wh => !!wh && !Number.isNaN(Number(wh))).reverse();
+            let workTimeSeconds = 0;
+            for (let i = 0; i < workTimeGroups.length; i++) {
+                workTimeSeconds += Number(workTimeGroups[i]) * this.secondsMultiplicationLut[i];
+            }
+            this.pieChartData = [{
+                "name": "Work Hours",
+                "value": (workTimeSeconds / 3600).toPrecision(1)
+              },
+              {
+                "name": "Break Time",
+                "value": (breakTimeSeconds / 3600).toPrecision(1)
+              }];
+            
         });
-      }
+    }
 
     checkin() {
         if(this.firstcheckin == true)
@@ -265,12 +287,12 @@ export class UserPage {
 
     convertTimerToString(timer: CdTimerComponent): string {
         if (!timer.get().seconds) {
-            return 'N/A';
+            return '00:00:00';
         }
         var timerS = '';
-        timerS += timer.get().hours + 'h ';
-        timerS += timer.get().minutes + 'm ';
-        timerS += timer.get().seconds + 's ';
+        timerS += timer.get().hours + ':';
+        timerS += timer.get().minutes + ':';
+        timerS += timer.get().seconds;
         return timerS;
     }
 

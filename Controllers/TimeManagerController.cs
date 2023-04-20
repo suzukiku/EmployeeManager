@@ -65,8 +65,10 @@ namespace Project3.Controllers
     {
       try
       {
-        var TimeManager = Services.TimeManagerService.GetDbSetAsEnumerable();
-        return Ok(TimeManager);
+       
+        var timeManager = Services.TimeManagerService.GetDbSetAsEnumerable();
+      
+        return Ok(timeManager);
       }
       catch (Exception ex)
       {
@@ -80,8 +82,17 @@ namespace Project3.Controllers
     {
       try
       {
-        var TimeManager = Services.TimeManagerService.GetTimeManagersByEmployee(employeeId);
-        return Ok(TimeManager);
+        var response = new GetTimeManagerByEmployeeIdResponse();
+        var timeManager = Services.TimeManagerService.GetTimeManagersByEmployee(employeeId);
+        response.TimeManager = timeManager;
+
+        var today = DateTimeOffset.Now;
+        var firstDayOfMonth = new DateTime(today.Year, today.Month, 1);
+        var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+        var totalHours = Services.TimeManagerService.CalculateTotalWorkHoursAndBreakTime(timeManager, firstDayOfMonth, lastDayOfMonth);
+        response.TimeManagerResult = totalHours;
+
+        return Ok(response);
       }
       catch (Exception ex)
       {

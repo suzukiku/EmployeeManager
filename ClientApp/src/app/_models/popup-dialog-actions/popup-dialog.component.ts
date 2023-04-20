@@ -152,7 +152,7 @@ export class FileNameDialogComponentActions {
             if (!response.body) {
                 return;
             }
-            this.dataSource = new MatTableDataSource(response.body);
+            this.dataSource = new MatTableDataSource(response.body.timeManager);
         });
       }
     onCloseDialog() {

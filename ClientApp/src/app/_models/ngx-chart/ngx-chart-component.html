@@ -1,7 +1,7 @@
-<ngx-charts-pie-chart
+<ngx-charts-pie-chart *ngIf="data?.length"
   [view]="view"
   [scheme]="colorScheme"
-  [results]="single"
+  [results]="data"
   [gradient]="gradient"
   [legend]="showLegend"
   [legendPosition]="legendPosition"

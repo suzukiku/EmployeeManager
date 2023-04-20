@@ -44,15 +44,15 @@
   </div>
   <div class="chart-wrapper">
     <div style="margin-left: 210px; color: white;">
-      Last month's worked hours
+      Worked hours
     </div>
-    <charts-component></charts-component>
+    <charts-component [data]="pieChartData" ></charts-component>
   </div>
-  <div class="report-wrapper">
+  <!-- <div class="report-wrapper">
     <mat-dialog-actions class="pull-right">
       <button type="button" class="btn btn-warning" (click)="monthlyReport()">Report</button>
     </mat-dialog-actions>
-  </div>
+  </div> -->
 </div>
 <div>
   <mat-table #table [dataSource]="dataSource" class="fixed-height" matSort (matSortChange)="sortData($event)" >

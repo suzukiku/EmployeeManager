@@ -1,7 +1,7 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, Input, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LegendPosition, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
-import { single } from './data';
+import {  TimeManagerResult } from '../api-models';
 
 @Component({
   selector: 'charts-component',
@@ -9,6 +9,7 @@ import { single } from './data';
   styleUrls: ['./ngx-chart-component.css']
 })
 export class ChartsComponent {
+  @Input() data: any[];
   single: any[];
   view: any = [700, 400];
 
@@ -27,7 +28,8 @@ export class ChartsComponent {
   };
 
   constructor() {
-    Object.assign(this, { single });
+    var datas = JSON.stringify(this.data)
+    Object.assign(this, { datas });
   }
 
   onSelect(data: any): void {

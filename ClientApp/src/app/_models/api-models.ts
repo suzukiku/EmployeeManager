@@ -37,6 +37,8 @@ export class TimeManager{
     public employeeId: string;
 }
 
+
+
 export class WorkHours{
     constructor() {
         this.workhoursID = '';
@@ -78,4 +80,23 @@ export class Token {
     public tokenType: string;
     public accessToken: string;
 
+}
+
+
+//Responses 
+export class GetTimeManagerByEmployeeIdResponse{
+    constructor(){
+        this.timeManager = new Array<TimeManager>();
+        this.timeManagerResult = new TimeManagerResult();
+    }
+    public timeManager: Array<TimeManager>;
+    public timeManagerResult: TimeManagerResult;
+}
+export class TimeManagerResult {
+    constructor(){
+        this.workHours = "";
+        this.breakTime ="";
+    }
+    public workHours: string;
+    public breakTime: string;
 }

@@ -5,7 +5,7 @@ import { Observable, of, throwError, Timestamp } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Employee, ResponseBase, TimeManager, User, WorkHours } from './_models/api-models';
+import { Employee, GetTimeManagerByEmployeeIdResponse, ResponseBase, TimeManager, User, WorkHours } from './_models/api-models';
 import { environment } from 'src/environments/environment';
 import { Time } from '@angular/common';
 import { LoginModel } from './request-base';
@@ -175,8 +175,8 @@ export class SharedService {
         return this.get(this.APIUrl + "TimeManager") as Observable<HttpResponse<TimeManager[]>>;
     }
 
-    getTimeManagerByEmployeeId(employeeId: string): Observable<HttpResponse<TimeManager[]>> {
-        return this.get(this.APIUrl + "TimeManager/byEmployee/" + employeeId) as Observable<HttpResponse<TimeManager[]>>;
+    getTimeManagerByEmployeeId(employeeId: string): Observable<HttpResponse<GetTimeManagerByEmployeeIdResponse>> {
+        return this.get(this.APIUrl + "TimeManager/byEmployee/" + employeeId) as Observable<HttpResponse<GetTimeManagerByEmployeeIdResponse>>;
     }
 
     postTimeManager(timemanager: TimeManager): Observable<Object> {
