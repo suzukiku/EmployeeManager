@@ -1,3 +1,4 @@
+using coreAPI.Controllers;
 using coreAPI.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

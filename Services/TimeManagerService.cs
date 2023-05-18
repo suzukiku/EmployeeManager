@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Project3.Model;
 using Project3.Model.DTO;
 
-namespace Project3.Service
+namespace coreAPI.Service
 {
     public class TimeManagerService : SqlRepository<TimeManager, Guid, SqlDatabaseContext, Services>
     {

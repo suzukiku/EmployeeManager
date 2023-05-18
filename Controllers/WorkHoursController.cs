@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
-using Project3.Model;
+using coreAPI.Model;
 using Project3.Model.DTO;
 using System.Data;
 using System.Security.Cryptography.X509Certificates;
+using Project3.Model;
 
-namespace Project3.Controllers
+namespace coreAPI.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]

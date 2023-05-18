@@ -287,7 +287,7 @@ export class UserPage {
 
     convertTimerToString(timer: CdTimerComponent): string {
         if (!timer.get().seconds) {
-            return '00:00:00';
+            return '0:0:0';
         }
         var timerS = '';
         timerS += timer.get().hours + ':';

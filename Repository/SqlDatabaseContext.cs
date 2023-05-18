@@ -17,6 +17,7 @@ namespace coreAPI.Repository
         public virtual DbSet<WorkHours> WorkHours { get; set; }
 
         public virtual DbSet<TimeManager> TimeManager { get; set; }
+        public virtual DbSet<Skill> Skills { get; set; }
 
         public static SqlDatabaseContext Create()
         {

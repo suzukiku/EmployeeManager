@@ -7,7 +7,7 @@ using Project3.Model.DTO;
 using Project3.Model.Response;
 using System.Security.Claims;
 
-namespace Project3.Controllers
+namespace coreAPI.Controllers
 {
   [ApiController]
   [Authorize]
@@ -143,4 +143,3 @@ namespace Project3.Controllers
   }
 }
 
-//var sumhours = Services.TimeManagerService.GetTimeManagersByEmployee(employeeId).Select(x => x.WorkHours).Sum();

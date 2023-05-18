@@ -3,7 +3,7 @@ using coreAPI.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Project3.Service;
+using Project3.Interfaces;
 
 namespace coreAPI.Service
 {

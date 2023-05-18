@@ -1,3 +1,4 @@
+using coreAPI.Controllers;
 using coreAPI.Model.RequestModel;
 using coreAPI.Service;
 using Microsoft.AspNetCore.Authorization;

@@ -32,6 +32,8 @@ import { Employee } from './_models/api-models';
 import { AuthPage } from './_models/auth-page/auth-page';
 import { LoginForm } from './_models/login-form/login-form';
 import { Signup } from './_models/signup.form/signup-form';
+import { FileUploadModule } from 'ng2-file-upload';
+import { FileuploaderComponent } from './_models/fileuploader/fileuploader.component';
 
 
 @NgModule({
@@ -45,6 +47,7 @@ import { Signup } from './_models/signup.form/signup-form';
     AuthPage,
     LoginForm,
     Signup,
+    FileuploaderComponent
     
   ],
   bootstrap: [AppComponent],
@@ -72,6 +75,9 @@ import { Signup } from './_models/signup.form/signup-form';
     NgxChartsModule,
     AppRoutingModule,
     RouterModule,
+    BrowserModule,
+    FormsModule,
+    FileUploadModule
   ],
   providers: [
     Employee,

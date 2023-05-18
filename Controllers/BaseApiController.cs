@@ -1,9 +1,9 @@
-﻿using coreAPI.Repository;
+using coreAPI.Repository;
 using coreAPI.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Project3.Controllers
+namespace coreAPI.Controllers
 {
     public class BaseApiController : ControllerBase
     {
