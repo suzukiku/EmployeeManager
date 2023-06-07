@@ -14,6 +14,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { last, merge, tap } from 'rxjs';
 import {MatSortModule} from '@angular/material/sort';
 import {MatButtonModule} from '@angular/material/button';
+import { LocalStorageService } from 'src/app/local-storage.service';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class AdminPage {
     dataSource: MatTableDataSource<Employee>;
   sortedData: MatTableDataSource<Employee>;
 
-  constructor(private service: SharedService ,private dialog: MatDialog) {
+  constructor(private service: SharedService ,private dialog: MatDialog,private localStorage: LocalStorageService) {
+    
     this.dataSource = new MatTableDataSource<Employee>([]);
     this.sortedData = this.dataSource;
   }
@@ -41,7 +43,16 @@ export class AdminPage {
   }
   ngOnInit() {
     this.loadEmployee();
-
+    this.localStorage.tokenStorage.get('').subscribe(token => {
+            this.service.authToken = token;
+    this.service.checkToken().subscribe(response => {
+                if (response.status !== 200) {
+                    return;
+                }
+                this.service.user = response.body;
+    })
+  });
+  
   }
   
   applyFilter(event: Event) {

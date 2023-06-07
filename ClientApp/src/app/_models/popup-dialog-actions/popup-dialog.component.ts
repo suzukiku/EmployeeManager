@@ -51,8 +51,13 @@ export class FileNameDialogComponentActions {
     separatorKeysCodes: number[] = [ENTER, COMMA];
     fruitCtrl = new FormControl('');
     filteredFruits: Observable<string[]>;
-    fruits: string[] = ['Lemon'];
-    allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+
+    fruits: string[] = ['Angular'];
+    tags: string = 'Angular Java';
+
+    allFruits: string[] = ['Angular', 'C#', 'Java', 'Typescript'];
+
+
 
     constructor(
         private service: SharedService,
@@ -63,6 +68,7 @@ export class FileNameDialogComponentActions {
         @Inject(MAT_DIALOG_DATA) public employee: Employee,
     )
     {
+      this.fruits = this.tags.split(' ');
       this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
         startWith(null),
         map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),

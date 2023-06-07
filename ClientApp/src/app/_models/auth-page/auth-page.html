@@ -3,10 +3,12 @@
 <div class="auth-wrapper">
 	<div class="login-wrapper" *ngIf="isLogin">
 		<app-login-form ></app-login-form>
+		<br>
 		<a class="loginlink" (click)="isLogin=false">Don't have an account?</a>
 	</div>
 	<div class="signup-wrapper" *ngIf="!isLogin">
 		<app-signup-form></app-signup-form>
+		<br>
 		<a class="signuplink"(click)="isLogin=true">Already have an account?</a>
 	</div>
 </div>
