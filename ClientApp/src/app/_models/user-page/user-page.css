@@ -21,7 +21,7 @@ mat-form-field {
 }
 
 .fixed-height {
-    height: 20vh;
+    height: 30vh;
     overflow: auto;
 }
 ::ng-deep .mat-dialog-container{

@@ -25,6 +25,10 @@
             <mat-label>Password:</mat-label>
             <input matInput formControlName="password" maxlength="30" type="password" autocomplete="new-password">
         </mat-form-field>
+        <div class="uploader" style="color: white;">
+            <app-fileuploader></app-fileuploader>
+          </div>
+          <br>
         <button type="submit" class="btn btn-success" (click)="register()">Sign up</button>
     </div>
 </form>

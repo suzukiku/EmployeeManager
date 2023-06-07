@@ -1,7 +1,8 @@
 <div>
-    <div class="dialog-header-wrapper">
-        <h4 class="dialog-headline">Additional Employee Information</h4>
-        <mat-icon class="close-icon" (click)="onCloseDialog()">close</mat-icon>
+    <mat-icon class="close-icon" (click)="onCloseDialog()">close</mat-icon>
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+        <mat-tab label="Additional Employee Information">
+        <div class="dialog-header-wrapper">
     </div>
     <form [formGroup]="form">
         <div class="tab-content">
@@ -16,6 +17,48 @@
                     <input matInput formControlName="email" [readonly]="true">
                 </mat-form-field>
                 <br>
+                Employee skills:
+
+                <mat-form-field class="example-chip-list" appearance="fill">
+                  <mat-label>Skills:</mat-label>
+                  <mat-chip-list #chipList aria-label="Fruit selection">
+                    <mat-chip
+                      *ngFor="let fruit of fruits"
+                      (removed)="remove(fruit)">
+                      {{fruit}}
+                      <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip>
+                    <input
+                      placeholder="New skill..."
+                      #fruitInput
+                      [formControl]="fruitCtrl"
+                      [matAutocomplete]="auto"
+                      [matChipInputFor]="chipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      (matChipInputTokenEnd)="add($event)">
+                  </mat-chip-list>
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                      {{fruit}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <!-- <mat-form-field>
                     <mat-label>Time Worked:</mat-label>
                     <input matInput  formControlName="workHours" [readonly]="true">
@@ -31,29 +74,32 @@
             </div>
         </div>
     </form>
-    History of worked days:
-    <mat-table #table [dataSource]="dataSource" class="fixed-height">
-        
-        <ng-container matColumnDef="TimeStamp">
-          <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-          <mat-cell *matCellDef="let time"> {{time.timeStamp | date: 'mediumDate'}} </mat-cell>  
-        </ng-container>
-        
-        <ng-container matColumnDef="WorkHours">
-            <mat-header-cell *matHeaderCellDef> Hours Worked </mat-header-cell>
-            <mat-cell *matCellDef="let time"> {{time.workHours}} </mat-cell>
-        </ng-container>
-        
-        <ng-container matColumnDef="BreakTime">
-            <mat-header-cell *matHeaderCellDef> Break Time </mat-header-cell>
-            <mat-cell *matCellDef="let time"> {{time.breakTime}} </mat-cell>
-        </ng-container>
+</mat-tab>
+<mat-tab label="History of worked days">
+        <mat-table #table [dataSource]="dataSource" class="fixed-height">
 
-        <mat-header-row *matHeaderRowDef='columnsToDisplay'></mat-header-row>
-        <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
-        
-      </mat-table>
-    </div>
+            <ng-container matColumnDef="TimeStamp">
+              <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+              <mat-cell *matCellDef="let time"> {{time.timeStamp | date: 'mediumDate'}} </mat-cell>  
+            </ng-container>
+
+            <ng-container matColumnDef="WorkHours">
+                <mat-header-cell *matHeaderCellDef> Hours Worked </mat-header-cell>
+                <mat-cell *matCellDef="let time"> {{time.workHours}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="BreakTime">
+                <mat-header-cell *matHeaderCellDef> Break Time </mat-header-cell>
+                <mat-cell *matCellDef="let time"> {{time.breakTime}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef='columnsToDisplay'></mat-header-row>
+            <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+        </mat-table>
+    </mat-tab>
+    </mat-tab-group>
+</div>
     <!-- <div class="rares">
         <mat-dialog-actions class="pull-right">
             <button type="button" class="btn btn-success" (click)="checkin()" [disabled]="firstcheckin">Check In</button>

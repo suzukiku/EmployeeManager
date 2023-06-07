@@ -87,7 +87,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   openAddFileDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "30vw";
+    dialogConfig.width = "50vw";
     const fileNameDialogRef = this.dialog.open(FileNameDialogComponent,dialogConfig).afterClosed().subscribe(formData => {
       this.service.getEmployee().subscribe(response => {
         this.dataSource = new MatTableDataSource(<Array<Employee>>response.body);
@@ -99,7 +99,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   edit(employee: Employee) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "30vw";
+    dialogConfig.width = "50vw";
     dialogConfig.data = employee;
     const fileNameDialogRef = this.dialog.open(FileNameDialogComponent,dialogConfig).afterClosed().subscribe(formData => {
       this.service.getEmployee().subscribe(response => {
@@ -112,7 +112,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   openActionsFileDialog(employee: Employee) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "30vw";
+    dialogConfig.width = "50vw";
     dialogConfig.data = employee;
     const fileNameDialogRef = this.dialog.open(FileNameDialogComponentActions,dialogConfig).afterClosed().subscribe(formData => {
       this.service.getEmployee().subscribe(response => {

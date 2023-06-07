@@ -17,7 +17,7 @@ mat-form-field {
 }
 
 .fixed-height {
-    height: 20vh;
+    height: 40vh;
     overflow: auto;
 }
 ::ng-deep .mat-dialog-container{
@@ -47,4 +47,7 @@ mat-form-field {
   }
   .btn.btn-warning:focus{
     box-shadow: 0 0 0 0.25rem #663e7a;
+  }
+  .mat-tab-group {
+    margin-top: 5px;
   }
