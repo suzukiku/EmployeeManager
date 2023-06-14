@@ -2,6 +2,7 @@
 <div class='card'>
   <div class='card-header'>
     Ikon Soft Employee Manager
+    <button mat-button *ngIf="service.hasToken" (click)="projects()">Projects</button>
     <button mat-button *ngIf="service.hasToken" (click)="signOut()">Sign out</button>
   </div>
   <!-- <div class='card-body'> -->

@@ -61,6 +61,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/auth-page']);
     this.service.user = new User();
   }
+  projects(): void {
+    this.router.navigate(['/projects-page']);
+  }
   
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

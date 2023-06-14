@@ -46,19 +46,6 @@
                   </mat-autocomplete>
                 </mat-form-field>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <!-- <mat-form-field>
                     <mat-label>Time Worked:</mat-label>
                     <input matInput  formControlName="workHours" [readonly]="true">
@@ -76,20 +63,20 @@
     </form>
 </mat-tab>
 <mat-tab label="History of worked days">
-        <mat-table #table [dataSource]="dataSource" class="fixed-height">
+        <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="fixed-height">
 
             <ng-container matColumnDef="TimeStamp">
-              <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef mat-sort-header="TimeStamp"> Date </mat-header-cell>
               <mat-cell *matCellDef="let time"> {{time.timeStamp | date: 'mediumDate'}} </mat-cell>  
             </ng-container>
 
             <ng-container matColumnDef="WorkHours">
-                <mat-header-cell *matHeaderCellDef> Hours Worked </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header="WorkHours"> Hours Worked </mat-header-cell>
                 <mat-cell *matCellDef="let time"> {{time.workHours}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="BreakTime">
-                <mat-header-cell *matHeaderCellDef> Break Time </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header="BreakTime"> Break Time </mat-header-cell>
                 <mat-cell *matCellDef="let time"> {{time.breakTime}} </mat-cell>
             </ng-container>
 

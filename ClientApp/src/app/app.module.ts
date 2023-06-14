@@ -36,6 +36,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { FileuploaderComponent } from './_models/fileuploader/fileuploader.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ProjectsPage } from './_models/projects-page/projects-page';
 
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {Component, ElementRef, ViewChild} from '@angular/core';
@@ -56,7 +57,9 @@ import {map, startWith} from 'rxjs/operators';
     AuthPage,
     LoginForm,
     Signup,
-    FileuploaderComponent
+    FileuploaderComponent,
+    ProjectsPage,
+    
     
   ],
   bootstrap: [AppComponent],

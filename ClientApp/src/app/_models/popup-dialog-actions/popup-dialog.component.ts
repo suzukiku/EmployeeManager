@@ -8,6 +8,8 @@ import { CdTimerComponent } from 'angular-cd-timer';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { LocalStorageService } from 'src/app/local-storage.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSort, Sort} from '@angular/material/sort';
+import {MatSortModule} from '@angular/material/sort';
 
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ElementRef} from '@angular/core';
@@ -35,6 +37,7 @@ export class FileNameDialogComponentActions {
     @ViewChild('breaktimer') breaktimer: CdTimerComponent;
     @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
     dataSource: MatTableDataSource<TimeManager>;
+    sortedData: MatTableDataSource<TimeManager>;
     columnsToDisplay: string[] = ['TimeStamp', 'WorkHours', 'BreakTime'];
     isnew: boolean = false;
     form: FormGroup;
@@ -73,6 +76,7 @@ export class FileNameDialogComponentActions {
         startWith(null),
         map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
       );
+      this.sortedData = this.dataSource;
     }
     ngOnInit() {
 
@@ -325,4 +329,27 @@ export class FileNameDialogComponentActions {
 
     return this.allFruits.filter(fruit => fruit.toLowerCase().includes(filterValue));
   }
+  sortData(sort:Sort){
+    const data = this.dataSource.data.slice();
+    if (!sort.active || sort.direction === '') {
+      this.dataSource.data = data;
+      return;
+    }
+    this.dataSource.data = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'TimeStamp':
+          return compare(a.timeStamp, b.timeStamp, isAsc);
+        case 'WorkHours':
+          return compare(a.workHours, b.workHours, isAsc);
+        case 'BreakTime':
+          return compare(a.breakTime, b.breakTime, isAsc);
+          default:
+            return 0;
+      }
+    });
+  }
 }
+function compare(a: Date | string, b: Date | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }

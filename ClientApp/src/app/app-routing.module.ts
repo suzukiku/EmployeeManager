@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { UserPage } from './_models/user-page/user-page';
 import { AdminPage } from './_models/admin-page/admin-page';
 import { AuthPage } from './_models/auth-page/auth-page';
+import { ProjectsPage } from './_models/projects-page/projects-page';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   { 
     path: 'admin-page',
     component: AdminPage
+  },
+  {
+    path: 'projects-page',
+    component: ProjectsPage
   },
   {
     path: '',
