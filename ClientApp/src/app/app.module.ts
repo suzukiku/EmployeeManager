@@ -28,7 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { UserPage } from './_models/user-page/user-page';
 import { AdminPage } from './_models/admin-page/admin-page';
 import { NeoPopupClosedStorage } from './local-storage.service';
-import { Employee } from './_models/api-models';
+import { Employee, Projects } from './_models/api-models';
 import { AuthPage } from './_models/auth-page/auth-page';
 import { LoginForm } from './_models/login-form/login-form';
 import { Signup } from './_models/signup.form/signup-form';
@@ -36,7 +36,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { FileuploaderComponent } from './_models/fileuploader/fileuploader.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { ProjectsPage } from './_models/projects-page/projects-page';
+import { ProjectsPage, ProjectsPagePopupDialog } from './_models/projects-page/projects-page';
 
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {Component, ElementRef, ViewChild} from '@angular/core';
@@ -59,6 +59,8 @@ import {map, startWith} from 'rxjs/operators';
     Signup,
     FileuploaderComponent,
     ProjectsPage,
+    ProjectsPagePopupDialog,
+    
     
     
   ],

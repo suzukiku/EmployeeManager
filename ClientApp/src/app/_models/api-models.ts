@@ -13,6 +13,17 @@ export class Employee{
     public userId: string;
 }
 
+export class Projects{
+    constructor() {
+        this.position = '';
+        this.name = '';
+        this.author = '';
+    }
+    public position: string;
+    public name: string;
+    public author: string;
+}
+
 export class ResponseBase {
 
     constructor() {
